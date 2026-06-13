@@ -86,12 +86,12 @@ func createAnthropicMessagesRouteConfig(pathPrefix string, logger schemas.Logger
 				return nil, errors.New("invalid request type")
 			},
 			ResponsesResponseConverter: func(ctx *schemas.BifrostContext, resp *schemas.BifrostResponsesResponse) (interface{}, error) {
-				soToolName, _ := ctx.Value(schemas.BifrostContextKeyStructuredOutputToolName).(string)
-				if soToolName == "" && isClaudeModel(resp.ExtraFields.OriginalModelRequested, resp.ExtraFields.ResolvedModelUsed, string(resp.ExtraFields.Provider)) {
-					if resp.ExtraFields.RawResponse != nil {
-						return resp.ExtraFields.RawResponse, nil
-					}
-				}
+				// soToolName, _ := ctx.Value(schemas.BifrostContextKeyStructuredOutputToolName).(string)
+				// if soToolName == "" && isClaudeModel(resp.ExtraFields.OriginalModelRequested, resp.ExtraFields.ResolvedModelUsed, string(resp.ExtraFields.Provider)) {
+				// 	if resp.ExtraFields.RawResponse != nil {
+				// 		return resp.ExtraFields.RawResponse, nil
+				// 	}
+				// }
 				return anthropic.ToAnthropicResponsesResponse(ctx, resp), nil
 			},
 			AsyncResponsesResponseConverter: func(ctx *schemas.BifrostContext, resp *schemas.AsyncJobResponse, responsesResponseConverter ResponsesResponseConverter) (interface{}, map[string]string, error) {
